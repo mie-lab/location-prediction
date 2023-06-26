@@ -26,7 +26,7 @@ misc:
 
 embedding:
   base_emb_size: 96
-  poi_original_size: 16
+  poi_original_size: 305
 
 model:
   networkName: transformer
