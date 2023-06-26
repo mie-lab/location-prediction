@@ -129,6 +129,18 @@ def _filter_sp_history(sp):
 
     filtered_sp = sp.loc[sp["user_id"].isin(valid_users)].copy()
 
+    train_data, vali_data, test_data = split_dataset(filtered_sp)
+
+    # encode unseen locations in validation and test into 0
+    enc = OrdinalEncoder(dtype=np.int64, handle_unknown="use_encoded_value", unknown_value=-1).fit(
+        train_data["location_id"].values.reshape(-1, 1)
+    )
+    # add 2 to account for unseen locations and to account for 0 padding
+    train_data["location_id"] = enc.transform(train_data["location_id"].values.reshape(-1, 1)) + 2
+    print(
+        f"Max location id:{train_data.location_id.max()}, unique location id:{train_data.location_id.unique().shape[0]}"
+    )
+
     # after user filter, we reencode the users, to ensure the user_id is continues
     # we do not need to encode the user_id again in dataloader.py
     enc = OrdinalEncoder(dtype=np.int64)
