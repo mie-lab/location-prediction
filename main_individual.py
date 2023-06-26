@@ -169,7 +169,7 @@ if __name__ == "__main__":
     # get data
     train_loader, val_loader, test_loader = get_dataloaders(config)
 
-    for _ in range(5):
+    for _ in range(1):
 
         # get model
         model = get_models(config, device)

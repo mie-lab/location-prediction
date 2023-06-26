@@ -25,7 +25,7 @@ in your working folder.
 ## Folder structure
 The respective code files are stored in seperate modules:
 - `/preprocessing/*`. Functions that are used for preprocessing the dataset. Should be executed before training a model. `poi.py` includes POI preprocessing and embedding methods (**LDA** and **TF-IDF**).
-- `/models/*`. Implementation of learning-based models. The methods include **FPMC**, **LSTM**, **LSTM_attn**, **Deepmove**, **mobTcast**and **Transformer**.  
+- `/models/*`. Implementation of **Transformer** learning model.  
 - `/baselines/*`. (Non-ML) Baseline methods that we implemented to compare with the proposed model. The methods include **persistent forcast**, **most frequent forcast** and **Markov models**. 
 - `/config/*`. Hyperparameter settings are saved in the `.yml` files under the respective dataset folder under `config/`. For example, `/config/geolife/transformer.yml` contains hyperparameter settings of the transformer model for the geolife dataset. 
 - `/utils/*`. Helper functions that are used for model training. 
@@ -33,7 +33,6 @@ The respective code files are stored in seperate modules:
 
 The main starting point for training a model is as follows:
 - `main.py` for starting the deep learning model training. 
-- `main_FPMC.py` for starting the training of the FPMC method and other baseline methods.
 - `main_individual.py` for starting the training of individual models. 
 
 ## Model variations
@@ -132,5 +131,5 @@ for starting the training process. The dataloader will create intermediate data 
 
 
 ## Contact
-If you have any questions, please let me know: 
+If you have any questions, please open an issue or let me know: 
 - Ye Hong {hongy@ethz.ch}
