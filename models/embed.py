@@ -64,6 +64,8 @@ class POINet(nn.Module):
         self.buffer_num = 11
 
         # 11 -> poi_vector_size*2 -> 11
+        self.linear_transform = torch.nn.Linear(poi_vector_size, 16)
+        poi_vector_size = 16
         if self.buffer_num == 11:
             self.linear1 = torch.nn.Linear(self.buffer_num, poi_vector_size * 2)
             self.linear2 = torch.nn.Linear(poi_vector_size * 2, self.buffer_num)
@@ -86,6 +88,9 @@ class POINet(nn.Module):
 
     def forward(self, x):
         # first
+        x = torch.transpose(x, -1, -2)
+        x = self.linear_transform(x)
+        x = torch.transpose(x, -1, -2)
         if self.buffer_num == 11:
             x = self.norm1(x + self._ff_block(x))
         # flat

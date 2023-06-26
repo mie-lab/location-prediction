@@ -189,6 +189,8 @@ def get_poi_representation(method="lda", categories=16):
     locs = ti.read_locations_csv(os.path.join("data", f"locations_gc.csv"), index_col="id", crs="EPSG:4326")
     locs = gpd.GeoDataFrame(locs.drop(columns="center"), crs="EPSG:4326", geometry="extent").to_crs("EPSG:2056")
 
+    print("read complete")
+
     # drop duplicate index
     locs.drop(columns="user_id", inplace=True)
     locs.reset_index(inplace=True)
@@ -197,6 +199,7 @@ def get_poi_representation(method="lda", categories=16):
     # read poi file
     poi = gpd.read_file(os.path.join("data", "poi", "final_pois.shp"))
     spatial_index = poi.sindex
+    print("read poi complete")
 
     poi_dict_ls = []
     buffer_ls = np.arange(11) * 50
@@ -232,6 +235,7 @@ def get_poi_representation(method="lda", categories=16):
         if method == "lda":
             poi_dict = _lda(valid_pairs, categories=categories)
         elif method == "tf_idf":
+            categories = poi["category"].unique().shape[0]
             poi_dict = _tf_idf(valid_pairs, categories=categories)
         else:
             raise AttributeError
@@ -269,7 +273,7 @@ def _get_inside_pois(df, poi, spatial_index):
     return precise_matches
 
 
-def _tf_idf(df, categories=8):
+def _tf_idf(df, categories=16):
     """Note: deal with the manually assigned "category" field."""
     texts = df.groupby("loc_id")["category"].apply(list).to_list()
 
@@ -304,6 +308,6 @@ def _lda(df, categories=16):
 
 
 if __name__ == "__main__":
-    preprocess()
+    # preprocess()
 
-    get_poi_representation(method="lda", categories=16)
+    get_poi_representation(method="tf_idf")

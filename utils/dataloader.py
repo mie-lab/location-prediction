@@ -42,6 +42,30 @@ class sp_loc_dataset(torch.utils.data.Dataset):
         else:
             self.is_individual_model = True
 
+        if self.dataset == "gc":
+            # the poi vectors
+            # self.poi_data = load_pk_file(os.path.join(self.root, "poiValues_lda_16_500.pk"))
+            # self.poi_data = load_pk_file(os.path.join(self.root, "poiValues_lda_16_single.pk"))
+            self.poi_data = load_pk_file(os.path.join(self.root, "poiValues_tf_idf_305.pk"))
+
+            self.valid_ids = load_pk_file(os.path.join(self.root, f"valid_ids_{self.dataset}.pk"))
+            ori_data = pd.read_csv(os.path.join(self.root, f"dataSet_{self.dataset}.csv"))
+            ori_data.sort_values(by=["user_id", "start_day", "start_min"], inplace=True)
+            # truncate too long duration: > 2days to 2 days
+            ori_data.loc[ori_data["duration"] > 60 * 24 * 2 - 1, "duration"] = 60 * 24 * 2 - 1
+
+            # classify the datasets, user dependent 0.6, 0.2, 0.2
+            train_data, vali_data, test_data = self._splitDataset(ori_data)
+            train_data, vali_data, test_data, enc = self._encode_loc(train_data, vali_data, test_data)
+
+            # re encode poi index, use the enc from self._encode_loc()
+            self.poi_data["index"] = enc.transform(self.poi_data["index"].reshape(-1, 1)) + 2
+            self.poi_data["index"] = np.squeeze(self.poi_data["index"], axis=-1)
+
+            # change the poi values of unknown locations into 0
+            idx = np.where(self.poi_data["index"] == 1)[0]
+            self.poi_data["poiValues"][idx, :, :] = np.zeros_like(self.poi_data["poiValues"][idx, :, :])
+
         if self.is_individual_model:
             # create seperate folders for each individual
             self.data_dir = os.path.join(
@@ -100,21 +124,18 @@ class sp_loc_dataset(torch.utils.data.Dataset):
         return_dict["weekday"] = torch.tensor(selected["weekday_X"])
 
         if self.dataset == "gc":
+            poi_X = self._getPOIRepresentation(selected["X"])
             # [sequence_len * buffer_num]
-            return_dict["poi"] = torch.tensor(np.array(selected["poi_X"]), dtype=torch.float32)
+            return_dict["poi"] = torch.tensor(np.array(poi_X), dtype=torch.float32)
 
         return x, y, return_dict
 
     def generate_data(self):
-        if self.dataset == "gc":
-            # the poi vectors
-            self.poi_data = load_pk_file(os.path.join(self.root, "poiValues_lda_16_500.pk"))
-            # self.poi_data = load_pk_file(os.path.join(self.root, "poiValues_lda_16_single.pk"))
-            # the valid location ids for unifying comparision
+        # the valid location ids for unifying comparision
         self.valid_ids = load_pk_file(os.path.join(self.root, f"valid_ids_{self.dataset}.pk"))
 
         # the location data
-        ori_data = pd.read_csv(os.path.join(self.root, f"dataset_{self.dataset}.csv"))
+        ori_data = pd.read_csv(os.path.join(self.root, f"dataSet_{self.dataset}.csv"))
 
         ori_data.sort_values(by=["user_id", "start_day", "start_min"], inplace=True)
 
@@ -138,15 +159,6 @@ class sp_loc_dataset(torch.utils.data.Dataset):
             # encode unseen location in train as 1 (0 reserved for padding)
             # this saves (a bit of) #parameters when defining the model
             train_data, vali_data, test_data, enc = self._encode_loc(train_data, vali_data, test_data)
-
-            if self.dataset == "gc":
-                # re encode poi index, use the enc from self._encode_loc()
-                self.poi_data["index"] = enc.transform(self.poi_data["index"].reshape(-1, 1)) + 2
-                self.poi_data["index"] = np.squeeze(self.poi_data["index"], axis=-1)
-
-                # change the poi values of unknown locations into 0
-                idx = np.where(self.poi_data["index"] == 1)[0]
-                self.poi_data["poiValues"][idx, :, :] = np.zeros_like(self.poi_data["poiValues"][idx, :, :])
 
         # preprocess the data into sequences
         train_records = self._preProcessDatasets(train_data, "train")
@@ -297,9 +309,6 @@ class sp_loc_dataset(torch.utils.data.Dataset):
             data_dict["start_min_X"] = hist["start_min"].values
             data_dict["dur_X"] = hist["duration"].values
             data_dict["diff"] = (row["diff_day"] - hist["diff_day"]).astype(int).values
-
-            if self.dataset == "gc":
-                data_dict["poi_X"] = self._getPOIRepresentation(data_dict["X"])
 
             # the next location is the target
             data_dict["Y"] = int(row["location_id"])
