@@ -1,0 +1,29 @@
+{
+    // lint
+    "python.linting.enabled": true,
+    // I disabled it because otherwise all yellow
+    "python.linting.pydocstyleEnabled": false,
+    "python.linting.pydocstyleArgs": [
+        "--convention=numpy"
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--max-line-length=120",
+        "--disable = C0330, C0326",
+    ],
+    "python.linting.flake8Enabled": false,
+    // auto save
+    "editor.wordWrap": "off",
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 5000,
+    // other
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "workbench.startupEditor": "welcomePage",
+    "workbench.sideBar.location": "left",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
+}

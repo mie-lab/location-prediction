@@ -1,0 +1,57 @@
+misc:
+  dataset: geolife
+  # 
+  if_individual_model: True
+  # 
+  if_embed_user: True
+  if_embed_poi: False
+  if_embed_time: True
+  if_embed_duration: False
+
+
+  total_user_num: 46
+
+  # how many days in the past we consider
+  previous_day: 7
+  verbose: False
+  debug: False
+  batch_size: 8
+  print_step: 20
+  num_workers: 16
+  day_selection: default
+  
+
+embedding:
+  base_emb_size: 32
+  poi_original_size: 0
+
+model:
+  networkName: transformer
+  # only for transformer
+  num_encoder_layers: 2
+  nhead: 8
+  dim_feedforward: 128
+  fc_dropout: 0.2
+
+optimiser:
+  optimizer: Adam
+  max_epoch: 100
+  lr: 0.001
+  weight_decay: 0.001
+  # lr: 0.01
+  # for Adam
+  beta1: 0.9
+  beta2: 0.999
+  # for SGD
+  momentum: 0.98
+  # for warmup
+  num_warmup_epochs: 2
+  num_training_epochs: 50
+  # for decay
+  patience: 3
+  lr_step_size: 1
+  lr_gamma: 0.1
+
+dataset:
+  source_root: ./data/
+  save_root: ./outputs/

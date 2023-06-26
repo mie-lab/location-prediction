@@ -1,0 +1,20 @@
+name: loc-pred
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9.12
+  - pygeos=0.12.0
+  - pytorch=1.12.1
+  - geopandas=0.12.1
+  - gensim
+  - tqdm
+  - easydict
+  - yaml
+  - pyyaml
+  - transformers=4.16.2
+  - cudatoolkit=11.3
+  - pip
+  - pip:
+    - trackintel==1.1.10
