@@ -9,7 +9,7 @@ from easydict import EasyDict as edict
 
 from utils.utils import load_config, setup_seed, get_trainedNets, get_test_result, get_dataloaders, get_models
 
-setup_seed(30)
+setup_seed(42)
 
 
 def single_run(train_loader, val_loader, test_loader, config, device, log_dir):
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     result_ls = []
     train_loader, val_loader, test_loader = get_dataloaders(config)
 
-    for i in range(1):
+    for i in range(2):
         # save the conf
         log_dir = init_save_path(config)
         res_single = single_run(train_loader, val_loader, test_loader, config, device, log_dir)
