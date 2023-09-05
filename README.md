@@ -135,10 +135,10 @@ If you find this code useful for your work or use it in your project, please con
 ```shell
 
 @article{hong_context_2023,
-	title = {Context-aware multi-head self-attentional neural network model for next location prediction},
-	journal = {Transportation Research Part C: Emerging Technologies},
-	author = {Hong, Ye and Zhang, Yatao and Schindler, Konrad and Raubal, Martin},
-	year = {2023},
+  title   = {Context-aware multi-head self-attentional neural network model for next location prediction},
+  journal = {Transportation Research Part C: Emerging Technologies},
+  author  = {Hong, Ye and Zhang, Yatao and Schindler, Konrad and Raubal, Martin},
+  year    = {2023},
 }
 
 ```
