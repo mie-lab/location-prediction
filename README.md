@@ -2,7 +2,7 @@
 
 This repository represents the implementation of the paper:
 
-## [Context-aware multi-head self-attentional neural network model for next location prediction](https://doi.org/10.1016/j.trc.2023.104315)
+## <a href="https://doi.org/10.1016/j.trc.2023.104315" target="_blank">Context-aware multi-head self-attentional neural network model for next location prediction</a>
 [Ye Hong](https://hongyeehh.github.io/), [Yatao Zhang](https://frs.ethz.ch/people/researchers/yatao-zhang.html), [Konrad Schindler](https://prs.igp.ethz.ch/group/people/person-detail.schindler.html), [Martin Raubal](https://raubal.ethz.ch/)\
 | [MIE, ETH Zurich](https://gis.ethz.ch/en/) | [FRS, Singapore-​ETH Centre](https://frs.ethz.ch/) | [PRS, ETH Zurich](https://prs.igp.ethz.ch/) |
 
