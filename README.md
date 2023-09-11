@@ -139,6 +139,9 @@ If you find this code useful for your work or use it in your project, please con
   journal = {Transportation Research Part C: Emerging Technologies},
   author  = {Hong, Ye and Zhang, Yatao and Schindler, Konrad and Raubal, Martin},
   year    = {2023},
+  volume  = {156},
+  pages   = {104315},
+  doi     = {10.1016/j.trc.2023.104315}
 }
 
 ```
