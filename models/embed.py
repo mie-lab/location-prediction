@@ -28,6 +28,7 @@ class TemporalEmbedding(nn.Module):
         super(TemporalEmbedding, self).__init__()
 
         self.emb_info = emb_info
+        # quater of an hour
         self.minute_size = 4
         hour_size = 24
         weekday = 7

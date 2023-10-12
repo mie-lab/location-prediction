@@ -89,8 +89,8 @@ class sp_loc_dataset(torch.utils.data.Dataset):
 
         # [1]
         return_dict["user"] = torch.tensor(selected["user_X"][0])
-        # [sequence_len] in half an hour
-        return_dict["time"] = torch.tensor(selected["start_min_X"] // 30)
+        # [sequence_len] in a quater of an hour
+        return_dict["time"] = torch.tensor(selected["start_min_X"] // 15)
         #
         return_dict["diff"] = torch.tensor(selected["diff"])
 
