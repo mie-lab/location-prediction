@@ -134,14 +134,15 @@ If you find this code useful for your work or use it in your project, please con
 
 ```shell
 
-@article{hong_context_2023,
-  title   = {Context-aware multi-head self-attentional neural network model for next location prediction},
-  journal = {Transportation Research Part C: Emerging Technologies},
-  author  = {Hong, Ye and Zhang, Yatao and Schindler, Konrad and Raubal, Martin},
-  year    = {2023},
-  volume  = {156},
-  pages   = {104315},
-  doi     = {10.1016/j.trc.2023.104315}
+@article{hong_evaluating_2023,
+	title     = {Evaluating geospatial context information for travel mode detection},
+	volume    = {113},
+	doi       = {10.1016/j.jtrangeo.2023.103736},
+	journal   = {Journal of Transport Geography},
+	author    = {Hong, Ye and Stüdeli, Emanuel and Raubal, Martin},
+	year      = {2023},
+	keywords  = {Travel mode detection, Random forest, Feature attribution, Geospatial context information, GNSS tracking data},
+	pages     = {103736},
 }
 
 ```
