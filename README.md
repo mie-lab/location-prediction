@@ -11,7 +11,7 @@ This repository represents the implementation of the paper:
 ## Requirements and dependencies
 This code has been tested on
 
-- Python 3.9.12, Geopandas 0.12.1, trackintel 1.1.10, gensim 4.1.2, PyTorch 1.12.1, transformers 4.16.2, cudatoolkit 11.3, GeForce RTX 3090
+- Python 3.9.12, trackintel 1.2.4, gensim 4.1.2, PyTorch 1.12.1, transformers 4.16.2, cudatoolkit 11.3, GeForce RTX 3090
 
 To create a virtual environment and install the required dependencies, please run the following:
 ```shell
@@ -82,7 +82,7 @@ run
 ```
 for generating the mobility entropy plot, the basic statistics of the Geolife dataset, and generating the tracking quality plot. 
 
-## Reproducing models on the check-in dataset
+## Reproducing models on check-in datasets
 To run the whole pipeline on Gowalla or Foursquare New York City (NYC) datasets, follow the steps below:
 
 ### 1. Switch branch and install dependencies 
@@ -118,7 +118,7 @@ or
 for executing the preprocessing script for the datasets. `dataSet_*.csv`, `locations_*.csv`, `sp_time_temp_*.csv` and `valid_ids_*.pk` will be created under the `data/` folder, 
 
 ### 4. Run the proposed transformer model
-- run 
+run 
 ```shell
     python main.py config/gowalla/transformer.yml
 ```

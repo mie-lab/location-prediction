@@ -11,7 +11,6 @@ from tqdm import tqdm
 import argparse
 
 # trackintel
-
 from trackintel.io.dataset_reader import read_geolife
 from trackintel.preprocessing.triplegs import generate_trips
 import trackintel as ti
@@ -35,7 +34,7 @@ def get_dataset(config, epsilon=50, num_samples=2):
     quality_path = os.path.join(".", "data", "quality")
     quality_file = os.path.join(quality_path, "geolife_slide_filtered.csv")
     if Path(quality_file).is_file():
-        valid_user = pd.read_csv(quality_path)["user_id"].values
+        valid_user = pd.read_csv(quality_file)["user_id"].values
     else:
         if not os.path.exists(quality_path):
             os.makedirs(quality_path)
