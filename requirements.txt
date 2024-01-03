@@ -1,7 +1,5 @@
 python=3.9.12
-geopandas
 pytorch
-pygeos
 tqdm
 easydict
 yaml
